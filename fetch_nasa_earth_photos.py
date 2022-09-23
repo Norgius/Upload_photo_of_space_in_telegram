@@ -1,9 +1,9 @@
 from utils_and_download_image import headers, download_image
+from pathlib import Path
 import datetime
 import os
 
 import requests
-from pathlib import Path
 
 
 def fetch_nasa_earth_photos():

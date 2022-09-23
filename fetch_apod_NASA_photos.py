@@ -1,10 +1,10 @@
 from utils_and_download_image import headers, download_image
 from utils_and_download_image import get_file_extension
+from pathlib import Path
 import argparse
 import os
 
 import requests
-from pathlib import Path
 
 
 def fetch_apod_NASA_photos(number=10):
