@@ -22,7 +22,7 @@ args = parser.parse_args()
 if args.time:
     interval = args.time * 3600
 else:
-    interval = 3600
+    interval = 14400
 
 bot = telegram.Bot(token=os.getenv('TELEGRAM_SPACE_BOT'))
 
