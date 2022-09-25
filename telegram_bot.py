@@ -20,19 +20,21 @@ def check_files():
     return files
 
 
-def post_one_photo(bot, filename=''):
+def post_one_photo(token, filename=''):
     files = check_files()
     if not filename:
         filename = choice(files)
     if filename not in files:
         return "Данный файл отсутствует в images/"
+    bot = telegram.Bot(token=token)
     photo = InputMediaPhoto(media=open(Path(f"images/{filename}"), "rb"))
     bot.send_media_group(chat_id='@space_photos_prime',
                          media=[photo])
     return 'Фотография опубликована'
 
 
-def post_endlessly(bot):
+def post_endlessly(token):
+    bot = telegram.Bot(token=token)
     while True:
         files = check_files()
         shuffle(files)
@@ -44,7 +46,7 @@ def post_endlessly(bot):
             time.sleep(14400)
 
 
-def main():
+def main(token):
     parser = argparse.ArgumentParser(
         description='''Публикует в телеграм канале отдельное фото, \
                     случайное фото или публикует фотографии в \
@@ -56,14 +58,14 @@ def main():
                             без аргументов - публикация случайного фото'''
                         )
     args = parser.parse_args()
-    bot = telegram.Bot(token=os.getenv('TELEGRAM_SPACE_BOT'))
     if args.photo == 'cycle':
-        return post_endlessly(bot)
+        return post_endlessly(token)
     elif args.photo:
-        return post_one_photo(bot, args.photo)
+        return post_one_photo(token, args.photo)
     else:
-        return post_one_photo(bot)
+        return post_one_photo(token)
 
 
 if __name__ == '__main__':
-    print(main())
+    token = os.getenv('TELEGRAM_SPACE_BOT')
+    print(main(token))

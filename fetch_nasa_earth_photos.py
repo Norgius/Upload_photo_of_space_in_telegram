@@ -6,9 +6,9 @@ import os
 import requests
 
 
-def main():
+def main(api_key):
     url_earth = "https://api.nasa.gov/EPIC/api/natural/images"
-    params = {"api_key": os.getenv("NASA_KEY")}
+    params = {"api_key": api_key}
     response = requests.get(url_earth, headers=headers, params=params)
     response.raise_for_status()
 
@@ -27,4 +27,5 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    api_key = os.getenv("NASA_KEY")
+    print(main(api_key))
