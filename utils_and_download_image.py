@@ -21,8 +21,6 @@ def get_file_extension(link):
 
 
 def download_image(url, path, params=None):
-    if params is None:
-        params = {}
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()
     with open(path, "wb") as file:
