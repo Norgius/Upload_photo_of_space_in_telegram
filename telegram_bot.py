@@ -20,7 +20,7 @@ def get_files_path():
     return files
 
 
-def post_one_photo(token, filename=''):
+def post_one_photo(token, chat_id, filename=''):
     files = get_files_path()
     if not filename:
         filename = choice(files)
@@ -29,12 +29,11 @@ def post_one_photo(token, filename=''):
     bot = telegram.Bot(token=token)
     with open(os.path.join('images', filename), 'rb') as filename:
         photo = InputMediaPhoto(media=filename)
-    bot.send_media_group(chat_id='@space_photos_prime',
-                         media=[photo])
+    bot.send_media_group(chat_id=chat_id, media=[photo])
     return 'Фотография опубликована'
 
 
-def post_endlessly(token):
+def post_endlessly(token, chat_id):
     bot = telegram.Bot(token=token)
     while True:
         files = get_files_path()
@@ -42,12 +41,11 @@ def post_endlessly(token):
         for filename in files:
             with open(os.path.join('images', filename), 'rb') as filename:
                 photo = InputMediaPhoto(media=filename)
-            bot.send_media_group(chat_id='@space_photos_prime',
-                                 media=[photo])
+            bot.send_media_group(chat_id=chat_id, media=[photo])
             time.sleep(14400)
 
 
-def main(token):
+def main(token, chat_id):
     parser = argparse.ArgumentParser(
         description='''Публикует в телеграм канале отдельное фото, \
                     случайное фото или публикует фотографии в \
@@ -60,14 +58,15 @@ def main(token):
                         )
     args = parser.parse_args()
     if args.photo == 'cycle':
-        return post_endlessly(token)
+        return post_endlessly(token, chat_id)
     elif args.photo:
-        return post_one_photo(token, args.photo)
+        return post_one_photo(token, chat_id, args.photo)
     else:
-        return post_one_photo(token)
+        return post_one_photo(token, chat_id)
 
 
 if __name__ == '__main__':
     load_dotenv()
     token = os.getenv('TELEGRAM_SPACE_BOT')
-    print(main(token))
+    chat_id = os.getenv('TELEGRAM_CHAT_ID')
+    print(main(token, chat_id))
