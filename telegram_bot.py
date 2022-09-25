@@ -27,9 +27,8 @@ def post_one_photo(token, filename=''):
     if filename not in files:
         return 'Данный файл отсутствует в images'
     bot = telegram.Bot(token=token)
-    photo = InputMediaPhoto(media=open(
-            os.path.join('images', filename), 'rb')
-    )
+    with open(os.path.join('images', filename), 'rb') as filename:
+        photo = InputMediaPhoto(media=filename)
     bot.send_media_group(chat_id='@space_photos_prime',
                          media=[photo])
     return 'Фотография опубликована'
@@ -41,8 +40,8 @@ def post_endlessly(token):
         files = get_files_path()
         shuffle(files)
         for filename in files:
-            photo = InputMediaPhoto(media=open(
-                        os.path.join('images', filename), 'rb'))
+            with open(os.path.join('images', filename), 'rb') as filename:
+                photo = InputMediaPhoto(media=filename)
             bot.send_media_group(chat_id='@space_photos_prime',
                                  media=[photo])
             time.sleep(14400)
