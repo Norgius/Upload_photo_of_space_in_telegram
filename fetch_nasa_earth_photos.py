@@ -6,7 +6,7 @@ import os
 import requests
 
 
-def fetch_nasa_earth_photos():
+def main():
     url_earth = "https://api.nasa.gov/EPIC/api/natural/images"
     params = {"api_key": os.getenv("NASA_KEY")}
     response = requests.get(url_earth, headers=headers, params=params)
@@ -23,6 +23,8 @@ def fetch_nasa_earth_photos():
             "natural/{}/png/{}.png".format(date_for_url, filename)
         path = Path(f'images/nasa_earth_{counter}.png')
         download_image(nasa_earth_link, path, params)
+    return "Фотографии нашей планеты загружены"
 
 
-fetch_nasa_earth_photos()
+if __name__ == '__main__':
+    print(main())

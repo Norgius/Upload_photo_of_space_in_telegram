@@ -20,19 +20,19 @@ def check_files():
     return files
 
 
-def post_one_photo(filename=''):
+def post_one_photo(bot, filename=''):
     files = check_files()
     if not filename:
         filename = choice(files)
     if filename not in files:
-        print("Данный файл отсутствует в images/")
-        return
+        return "Данный файл отсутствует в images/"
     photo = InputMediaPhoto(media=open(Path(f"images/{filename}"), "rb"))
     bot.send_media_group(chat_id='@space_photos_prime',
                          media=[photo])
+    return 'Фотография опубликована'
 
 
-def post_endlessly():
+def post_endlessly(bot):
     while True:
         files = check_files()
         shuffle(files)
@@ -44,21 +44,26 @@ def post_endlessly():
             time.sleep(14400)
 
 
-parser = argparse.ArgumentParser(
-    description='''Публикует в телеграм канале отдельное фото, \
-                   случайное фото или публикует фотографии в \
-                   бесконечном цикле с интервалом 4 часа'''
-)
-parser.add_argument('-p', '--photo', default=None, type=str,
-                    help='''-p cycle - бесконечный цикл;
-                         -p [filename] - публикация фото filename;
-                         без аргументов - публикация случайного фото'''
-                    )
-args = parser.parse_args()
-bot = telegram.Bot(token=os.getenv('TELEGRAM_SPACE_BOT'))
-if args.photo == 'cycle':
-    post_endlessly()
-elif args.photo:
-    post_one_photo(args.photo)
-else:
-    post_one_photo()
+def main():
+    parser = argparse.ArgumentParser(
+        description='''Публикует в телеграм канале отдельное фото, \
+                    случайное фото или публикует фотографии в \
+                    бесконечном цикле с интервалом 4 часа'''
+    )
+    parser.add_argument('-p', '--photo', default=None, type=str,
+                        help='''-p cycle - бесконечный цикл;
+                            -p [filename] - публикация фото filename;
+                            без аргументов - публикация случайного фото'''
+                        )
+    args = parser.parse_args()
+    bot = telegram.Bot(token=os.getenv('TELEGRAM_SPACE_BOT'))
+    if args.photo == 'cycle':
+        return post_endlessly(bot)
+    elif args.photo:
+        return post_one_photo(bot, args.photo)
+    else:
+        return post_one_photo(bot)
+
+
+if __name__ == '__main__':
+    print(main())
