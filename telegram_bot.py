@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 Path('images').mkdir(parents=True, exist_ok=True)
 
 
-def check_files():
+def get_files_path():
     for _, _, files in os.walk('images'):
         files = files
     if not files:
@@ -21,7 +21,7 @@ def check_files():
 
 
 def post_one_photo(token, filename=''):
-    files = check_files()
+    files = get_files_path()
     if not filename:
         filename = choice(files)
     if filename not in files:
@@ -38,7 +38,7 @@ def post_one_photo(token, filename=''):
 def post_endlessly(token):
     bot = telegram.Bot(token=token)
     while True:
-        files = check_files()
+        files = get_files_path()
         shuffle(files)
         for filename in files:
             photo = InputMediaPhoto(media=open(
