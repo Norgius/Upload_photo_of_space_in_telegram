@@ -12,13 +12,13 @@ def main(api_key):
     response = requests.get(url_earth, headers=headers, params=params)
     response.raise_for_status()
 
-    for counter, data_dict in enumerate(response.json()):
+    for counter, response_part in enumerate(response.json()):
         if counter == 7:
             break
-        date = data_dict.get("date")
+        date = response_part.get("date")
         date_for_url = datetime.datetime.fromisoformat(
             date).strftime("%Y/%m/%d")
-        filename = data_dict.get("image")
+        filename = response_part.get("image")
         nasa_earth_link = "https://api.nasa.gov/EPIC/archive/"\
             "natural/{}/png/{}.png".format(date_for_url, filename)
         path = Path(f'images/nasa_earth_{counter}.png')
