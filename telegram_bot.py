@@ -13,7 +13,8 @@ Path('images').mkdir(parents=True, exist_ok=True)
 
 
 def check_files():
-    files = list(os.walk(Path('images')))[0][2]
+    for _, _, files in os.walk('images'):
+        files = files
     if not files:
         raise TypeError('Изображения отсутствуют, пожалуйста загрузите их')
     return files
