@@ -1,5 +1,4 @@
 from utils_and_download_image import headers, download_image
-from pathlib import Path
 import datetime
 import os
 
@@ -21,7 +20,7 @@ def main(api_key):
         filename = response_part.get("image")
         nasa_earth_link = "https://api.nasa.gov/EPIC/archive/"\
             "natural/{}/png/{}.png".format(date_for_url, filename)
-        path = Path(f'images/nasa_earth_{counter}.png')
+        path = os.path.join('images', f'nasa_earth_{counter}.png')
         download_image(nasa_earth_link, path, params)
     return "Фотографии нашей планеты загружены"
 

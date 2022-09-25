@@ -1,6 +1,5 @@
 from utils_and_download_image import headers, download_image
 from utils_and_download_image import get_file_extension
-from pathlib import Path
 import argparse
 import os
 
@@ -16,7 +15,7 @@ def fetch_apod_NASA_photos(api_key, number):
     for counter, response_part in enumerate(response.json()):
         extension = get_file_extension(response_part.get('url'))
         if extension:
-            path = Path(f'images/nasa_apod_{counter}{extension}')
+            path = os.path.join('images', f'nasa_apod_{counter}{extension}')
             download_image(response_part.get('url'), path)
     return 'Фотографии APOD NASA загружены'
 

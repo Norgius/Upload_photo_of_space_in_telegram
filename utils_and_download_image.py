@@ -6,7 +6,7 @@ import requests
 from dotenv import load_dotenv
 
 
-Path('images/').mkdir(parents=True, exist_ok=True)
+Path('images').mkdir(parents=True, exist_ok=True)
 load_dotenv()
 
 headers = {

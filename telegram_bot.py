@@ -10,11 +10,11 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-Path('images/').mkdir(parents=True, exist_ok=True)
+Path('images').mkdir(parents=True, exist_ok=True)
 
 
 def check_files():
-    files = list(os.walk(Path("images/")))[0][2]
+    files = list(os.walk(Path("images")))[0][2]
     if not files:
         raise TypeError("Изображения отсутствуют, пожалуйста загрузите их")
     return files
@@ -25,9 +25,11 @@ def post_one_photo(token, filename=''):
     if not filename:
         filename = choice(files)
     if filename not in files:
-        return "Данный файл отсутствует в images/"
+        return "Данный файл отсутствует в images"
     bot = telegram.Bot(token=token)
-    photo = InputMediaPhoto(media=open(Path(f"images/{filename}"), "rb"))
+    photo = InputMediaPhoto(media=open(
+            os.path.join('images', filename), "rb")
+    )
     bot.send_media_group(chat_id='@space_photos_prime',
                          media=[photo])
     return 'Фотография опубликована'
@@ -40,7 +42,7 @@ def post_endlessly(token):
         shuffle(files)
         for filename in files:
             photo = InputMediaPhoto(media=open(
-                        Path(f"images/{filename}"), "rb"))
+                        os.path.join('images', filename), "rb"))
             bot.send_media_group(chat_id='@space_photos_prime',
                                  media=[photo])
             time.sleep(14400)

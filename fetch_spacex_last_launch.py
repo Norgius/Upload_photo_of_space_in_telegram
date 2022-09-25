@@ -1,6 +1,6 @@
 from utils_and_download_image import headers, download_image
-from pathlib import Path
 import argparse
+import os
 
 import requests
 
@@ -15,7 +15,7 @@ def fetch_spacex_last_launch(id):
     spacex_links = response.json()['links']['flickr'].get('original')
     if spacex_links:
         for number, link in enumerate(spacex_links):
-            path = Path(f'images/spacex_{number}.jpg')
+            path = os.path.join('images', f'spacex_{number}.jpg')
             download_image(link, path)
         return 'Фотографии SpaceX загружены'
     else:
