@@ -8,7 +8,7 @@ import requests
 spacex_id = '5eb87d47ffd86e000604b38a'
 
 
-def fetch_spacex_last_launch(id='latest'):
+def fetch_spacex_last_launch(id):
     url_spaceX = f'https://api.spacexdata.com/v5/launches/{id}'
     response = requests.get(url_spaceX, headers=headers)
     response.raise_for_status()
@@ -29,16 +29,14 @@ def main():
         description='''Данная программа позволяет скачивать \
                         фотографии с запусков ракет SpaceX'''
     )
-    parser.add_argument('--id', default=None, type=str,
+    parser.add_argument('-id', default='latest',
+                        type=fetch_spacex_last_launch,
                         help='id запуска ракеты')
-    args = parser.parse_args()
     try:
-        if args.id:
-            return fetch_spacex_last_launch(args.id)
-        else:
-            return fetch_spacex_last_launch()
+        args = parser.parse_args()
+        return args.id
     except requests.exceptions.HTTPError:
-        raise TypeError('Данного id не существует')
+        raise TypeError("Данного id не существует")
 
 
 if __name__ == '__main__':
