@@ -3,12 +3,9 @@ from urllib.parse import urlsplit
 from pathlib import Path
 
 import requests
-from dotenv import load_dotenv
 
 
 Path('images').mkdir(parents=True, exist_ok=True)
-load_dotenv()
-
 headers = {
     'User-Agent': 'My User Agent 1.0'
 }

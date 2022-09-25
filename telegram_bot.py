@@ -9,7 +9,6 @@ from telegram import InputMediaPhoto
 from dotenv import load_dotenv
 
 
-load_dotenv()
 Path('images').mkdir(parents=True, exist_ok=True)
 
 
@@ -69,5 +68,6 @@ def main(token):
 
 
 if __name__ == '__main__':
+    load_dotenv()
     token = os.getenv('TELEGRAM_SPACE_BOT')
     print(main(token))

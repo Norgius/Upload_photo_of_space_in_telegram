@@ -4,6 +4,7 @@ import argparse
 import os
 
 import requests
+from dotenv import load_dotenv
 
 
 def fetch_apod_NASA_photos(api_key, number):
@@ -33,5 +34,6 @@ def main(api_key):
 
 
 if __name__ == '__main__':
+    load_dotenv()
     api_key = os.getenv('NASA_KEY')
     print(main(api_key))
