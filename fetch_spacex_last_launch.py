@@ -13,15 +13,14 @@ def fetch_spacex_last_launch(id):
     response = requests.get(url_spaceX, headers=headers)
     response.raise_for_status()
     spacex_links = response.json()['links']['flickr'].get('original')
-    if spacex_links:
-        for number, link in enumerate(spacex_links):
-            path = os.path.join('images', f'spacex_{number}.jpg')
-            download_image(link, path)
-        return 'Фотографии SpaceX загружены'
-    else:
+    if not spacex_links:
         return ('Фотографии с последнего запуска SpaceX '
                 'отсутствуют, пожалуйста передайте в '
                 'аргумент программы id запуска ракеты.')
+    for number, link in enumerate(spacex_links):
+        path = os.path.join('images', f'spacex_{number}.jpg')
+        download_image(link, path)
+    return 'Фотографии SpaceX загружены'
 
 
 def main():
@@ -36,7 +35,7 @@ def main():
         args = parser.parse_args()
         return args.id
     except requests.exceptions.HTTPError:
-        raise TypeError("Данного id не существует")
+        raise TypeError('Данного id не существует')
 
 
 if __name__ == '__main__':
