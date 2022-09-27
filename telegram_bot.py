@@ -30,7 +30,6 @@ def post_one_photo(token, chat_id, filename=''):
     with open(os.path.join('images', filename), 'rb') as filename:
         photo = InputMediaPhoto(media=filename)
     bot.send_media_group(chat_id=chat_id, media=[photo])
-    return 'Фотография опубликована'
 
 
 def post_endlessly(token, chat_id):
@@ -61,12 +60,13 @@ def main():
                         )
     args = parser.parse_args()
     if args.photo == 'cycle':
-        return post_endlessly(token, chat_id)
+        post_endlessly(token, chat_id)
     elif args.photo:
-        return post_one_photo(token, chat_id, args.photo)
+        post_one_photo(token, chat_id, args.photo)
     else:
-        return post_one_photo(token, chat_id)
+        post_one_photo(token, chat_id)
 
 
 if __name__ == '__main__':
-    print(main())
+    main()
+    print('Фотография опубликована')

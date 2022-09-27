@@ -25,9 +25,8 @@ def main():
             'natural/{}/png/{}.png'.format(date_for_url, filename)
         path = os.path.join('images', f'nasa_earth_{counter}.png')
         download_image(nasa_earth_link, path, params)
-    return 'Фотографии нашей планеты загружены'
 
 
 if __name__ == '__main__':
-
-    print(main())
+    main()
+    print('Фотографии нашей планеты загружены')

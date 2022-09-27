@@ -18,7 +18,6 @@ def fetch_apod_NASA_photos(api_key, number):
         if extension:
             path = os.path.join('images', f'nasa_apod_{counter}{extension}')
             download_image(response_part.get('url'), path)
-    return 'Фотографии APOD NASA загружены'
 
 
 def main():
@@ -32,8 +31,9 @@ def main():
                         help='''Число для загрузки нужного \
                                 количества фотографий''')
     args = parser.parse_args()
-    return fetch_apod_NASA_photos(api_key, args.n)
+    fetch_apod_NASA_photos(api_key, args.n)
 
 
 if __name__ == '__main__':
-    print(main())
+    main()
+    print('Фотографии APOD NASA загружены')
