@@ -9,9 +9,6 @@ from telegram import InputMediaPhoto
 from dotenv import load_dotenv
 
 
-Path('images').mkdir(parents=True, exist_ok=True)
-
-
 def get_files_path():
     for _, _, files in os.walk('images'):
         files = files
@@ -25,7 +22,7 @@ def post_one_photo(token, chat_id, filename=''):
     if not filename:
         filename = choice(files)
     if filename not in files:
-        return 'Данный файл отсутствует в images'
+        raise TypeError('Данный файл отсутствует в images')
     bot = telegram.Bot(token=token)
     with open(os.path.join('images', filename), 'rb') as filename:
         photo = InputMediaPhoto(media=filename)
@@ -46,7 +43,8 @@ def post_endlessly(token, chat_id):
 
 def main():
     load_dotenv()
-    token = os.getenv('TELEGRAM_SPACE_BOT')
+    Path('images').mkdir(parents=True, exist_ok=True)
+    token = os.getenv('SPACE_BOT_TELEGRAM_TOKEN')
     chat_id = os.getenv('TELEGRAM_CHAT_ID')
     parser = argparse.ArgumentParser(
         description='''Публикует в телеграм канале отдельное фото, \
