@@ -8,12 +8,11 @@
 ```
 NASA_KEY=aETQovREmyWvhuagagbKONJX8Xkjdb4f8F1BguHuo
 ```
-
 Для регистрации телеграм бота воспользуйтесь ссылкой https://way23.ru/%D1%80%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%B1%D0%BE%D1%82%D0%B0-%D0%B2-telegram.html. После регистрации вы получите токен наподобие `958423683:AAEAtJ5Lde5YYfkjergber`. 
 
 В файл `.env` сохраните токен телеграм бота в таком формате:
 ```
-TELEGRAM_SPACE_BOT=958423683:AAEAtJ5Lde5YYfkjergber
+SPACE_BOT_TELEGRAM_TOKEN=958423683:AAEAtJ5Lde5YYfkjergber
 ```
 Назначаем бота админом телеграм канала.
 
@@ -32,7 +31,7 @@ fetch_spacex_last_launch.py
 ```
 `fetch_apod_NASA_photos.py` - загружает APOD фото (по умолчанию - 10). В качестве аргумента `-n` можно поменять количество.
 
-`fetch_nasa_earth_photos.py` - загружает 7 фото нашей планеты
+`fetch_nasa_earth_photos.py` - загружает фото нашей планеты (по умолчанию - 7). В качестве аргумента `-n` можно передать числа от 1 до 10.
 
 `fetch_spacex_last_launch.py` - загружает фото с последнего запуска SpaceX. Если во время последнего запуска фото не были загружены, то можно передать в качестве аргумента `-id` данного запуска `5eb87d47ffd86e000604b38a`
 
