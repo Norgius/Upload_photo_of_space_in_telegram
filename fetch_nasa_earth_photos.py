@@ -1,7 +1,9 @@
-from utils_and_download_image import headers, download_image
+from utils_and_download_image import HEADERS, download_image
+from pathlib import Path
 import datetime
 import argparse
 import os
+
 
 import requests
 from dotenv import load_dotenv
@@ -10,7 +12,7 @@ from dotenv import load_dotenv
 def fetch_nasa_earth_photos(api_key, number):
     url_earth = 'https://api.nasa.gov/EPIC/api/natural/images'
     params = {'api_key': api_key}
-    response = requests.get(url_earth, headers=headers, params=params)
+    response = requests.get(url_earth, headers=HEADERS, params=params)
     response.raise_for_status()
     for counter, response_part in enumerate(response.json()):
         if counter == number:
@@ -27,6 +29,7 @@ def fetch_nasa_earth_photos(api_key, number):
 
 def main():
     load_dotenv()
+    Path('images').mkdir(parents=True, exist_ok=True)
     api_key = os.getenv('NASA_KEY')
     parser = argparse.ArgumentParser(
         description='Данная программа позволяет '
