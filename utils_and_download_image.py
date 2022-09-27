@@ -1,12 +1,10 @@
 import os
 from urllib.parse import urlsplit
-from pathlib import Path
 
 import requests
 
 
-Path('images').mkdir(parents=True, exist_ok=True)
-headers = {
+HEADERS = {
     'User-Agent': 'My User Agent 1.0'
 }
 
@@ -18,7 +16,7 @@ def get_file_extension(link):
 
 
 def download_image(url, path, params=None):
-    response = requests.get(url, headers=headers, params=params)
+    response = requests.get(url, headers=HEADERS, params=params)
     response.raise_for_status()
     with open(path, 'wb') as file:
         file.write(response.content)
