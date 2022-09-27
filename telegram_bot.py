@@ -45,7 +45,10 @@ def post_endlessly(token, chat_id):
             time.sleep(14400)
 
 
-def main(token, chat_id):
+def main():
+    load_dotenv()
+    token = os.getenv('TELEGRAM_SPACE_BOT')
+    chat_id = os.getenv('TELEGRAM_CHAT_ID')
     parser = argparse.ArgumentParser(
         description='''Публикует в телеграм канале отдельное фото, \
                     случайное фото или публикует фотографии в \
@@ -66,7 +69,4 @@ def main(token, chat_id):
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    token = os.getenv('TELEGRAM_SPACE_BOT')
-    chat_id = os.getenv('TELEGRAM_CHAT_ID')
-    print(main(token, chat_id))
+    print(main())

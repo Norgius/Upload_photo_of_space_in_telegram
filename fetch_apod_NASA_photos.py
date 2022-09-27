@@ -21,7 +21,9 @@ def fetch_apod_NASA_photos(api_key, number):
     return 'Фотографии APOD NASA загружены'
 
 
-def main(api_key):
+def main():
+    load_dotenv()
+    api_key = os.getenv('NASA_KEY')
     parser = argparse.ArgumentParser(
         description='Данная программа позволяет '
                     'скачивать apod фотографии NASA'
@@ -34,6 +36,4 @@ def main(api_key):
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    api_key = os.getenv('NASA_KEY')
-    print(main(api_key))
+    print(main())
