@@ -39,8 +39,8 @@ def main():
                                 количества фотографий (от 1 до 10)''')
     args = parser.parse_args()
     fetch_nasa_earth_photos(api_key, args.n)
+    print('Фотографии нашей планеты загружены')
 
 
 if __name__ == '__main__':
     main()
-    print('Фотографии нашей планеты загружены')

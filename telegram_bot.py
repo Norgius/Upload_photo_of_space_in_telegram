@@ -63,8 +63,8 @@ def main():
         post_one_photo(token, chat_id, args.photo)
     else:
         post_one_photo(token, chat_id)
+    print('Фотография опубликована')
 
 
 if __name__ == '__main__':
     main()
-    print('Фотография опубликована')

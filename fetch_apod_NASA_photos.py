@@ -34,8 +34,8 @@ def main():
                                 количества фотографий''')
     args = parser.parse_args()
     fetch_apod_NASA_photos(api_key, args.n)
+    print('Фотографии APOD NASA загружены')
 
 
 if __name__ == '__main__':
     main()
-    print('Фотографии APOD NASA загружены')

@@ -31,10 +31,10 @@ def main():
     try:
         args = parser.parse_args()
         fetch_spacex_last_launch(args.id)
+        print('Фотографии SpaceX загружены')
     except requests.exceptions.HTTPError:
         raise TypeError('Данного id не существует')
 
 
 if __name__ == '__main__':
     main()
-    print('Фотографии SpaceX загружены')
